@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.version = Administrate::Field::Image::VERSION
   gem.authors = ["Grayson Wright"]
   gem.email = ["wright.grayson@gmail.com"]
-  gem.homepage = "https://github.com/graysonwright/administrate_field_image"
+  gem.homepage = "https://github.com/graysonwright/administrate-field-image"
   gem.summary = "Official Image field plugin for Administrate"
   gem.description = gem.summary
   gem.license = "MIT"
