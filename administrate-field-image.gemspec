@@ -2,9 +2,9 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = "administrate-field-image"
-  gem.version = "0.0.2"
-  gem.authors = ["Grayson Wright"]
-  gem.email = ["wright.grayson@gmail.com"]
+  gem.version = "1.0.0"
+  gem.authors = ["Grayson Wright", "Nick Charlton"]
+  gem.email = ["wright.grayson@gmail.com", "nick@nickcharlton.net"]
   gem.homepage = "https://github.com/graysonwright/administrate-field-image"
   gem.summary = "Official Image field plugin for Administrate"
   gem.description = gem.summary
