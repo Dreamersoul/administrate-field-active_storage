@@ -1,8 +1,9 @@
 # Administrate::Field::ActiveStorage
 ![rails](https://img.shields.io/badge/rails-%3E%3D5.2.0-red.svg)
 ## Things To Know:
-- to preview pdf files you need to install `mupdf` or `Poppler`
-- to preview video files you need to install `ffmpeg`
+- currently the gem only works for `has_one_attached` support for `has_many_attached` will be added in a future release.
+- to preview pdf files you need to install `mupdf` or `Poppler`.
+- to preview video files you need to install `ffmpeg`.
 
 ## How To Use:
 Add `administrate-field-active_storage` to your Gemfile:
