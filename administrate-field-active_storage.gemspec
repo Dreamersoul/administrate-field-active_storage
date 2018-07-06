@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = "administrate-field-active_storage"
-  gem.version = "0.0.1"
+  gem.version = "0.0.2"
   gem.authors = ["Hamad AlGhanim"]
   gem.email = ["hamadyalghanim@gmail.com"]
   gem.homepage = "https://github.com/Dreamersoul/administrate-field-active_storage"
