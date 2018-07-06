@@ -1,5 +1,5 @@
 # Administrate::Field::ActiveStorage
-
+![rails](https://img.shields.io/badge/rails-%3E%3D5.2.0-red.svg)
 ## Things to do:
 
 - [ ] upload single file
