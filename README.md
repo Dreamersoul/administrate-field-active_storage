@@ -1,33 +1,19 @@
-# Administrate::Field::Image
+# Administrate::Field::ActiveStorage
 
-A plugin to show image URLs in [Administrate].
+## Things to do:
 
-This repository is the first field plugin extracted out of Administrate.
-Although its structure may change,
-it's designed to act as a template for other Administrate field plugins.
+- [ ] upload single file
+- [ ] adding image support through url_for to support 3rd party cloud storage
+- [ ] use html 5 video element for video files
+- [ ] use html audio element for audio files
+- [ ] download link to other files
+- [ ] preview pdfs and office files as pictures
+- [ ] upload multiple files
 
-## FAQs
+## Contribution guide:
+1. contributers are welcome (code, suggestions, and bugs).
+2. please document your code.
+3. add your name to the `contribute.md`.
+---
+Based on the [Administrate::Field::Image](https://github.com/thoughtbot/administrate-field-image) template.
 
-**Q: How should I name my gem?**
-
-A: Administrate field gems must be named according to the [Rubygems naming guidelines].
-
-Essentially, name your gem after the field class that it defines.
-If there's a namespace in the class name, that gets translated to a dash (`-`) in the gem name.
-If the class name is CamelCased, that translates to an underscore (`_`) in the gem name.
-
-Since all administrate field gems are under the namespace `Administrate::Field`,
-every field gem name should start with the prefix `administrate-field-`.
-
-Here are some examples (these don't correspond to actual gems):
-
-| Gem Name | Field Name |
-|----------------------------|------------------------------|
-| `administrate-field-image` | `Administrate::Field::Image` |
-| `administrate-field-file_upload` | `Administrate::Field::FileUpload` |
-| `administrate-field-geocoding-region` | `Administrate::Field::Geocoding::Region` |
-| `administrate-field-geocoding-geo_json` | `Administrate::Field::Geocoding::GeoJson` |
-
-[Rubygems naming guidelines]: http://guides.rubygems.org/name-your-gem/
-
-[Administrate]: https://github.com/thoughtbot/administrate

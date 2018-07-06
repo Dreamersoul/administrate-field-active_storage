@@ -1,6 +1,6 @@
 require "administrate/field/image"
 
-describe Administrate::Field::Image do
+describe Administrate::Field::ActiveStorage do
   describe "#to_partial_path" do
     it "returns a partial based on the page being rendered" do
       page = :show
@@ -8,7 +8,7 @@ describe Administrate::Field::Image do
 
       path = field.to_partial_path
 
-      expect(path).to eq("/fields/image/#{page}")
+      expect(path).to eq("/fields/active_storage/#{page}")
     end
   end
 end

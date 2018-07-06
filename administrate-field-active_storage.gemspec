@@ -1,12 +1,12 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name = "administrate-field-image"
-  gem.version = "1.1.0"
-  gem.authors = ["Grayson Wright", "Nick Charlton"]
-  gem.email = ["wright.grayson@gmail.com", "nick@nickcharlton.net"]
-  gem.homepage = "https://github.com/graysonwright/administrate-field-image"
-  gem.summary = "Official Image field plugin for Administrate"
+  gem.name = "administrate-field-active_storage"
+  gem.version = "0.0.1"
+  gem.authors = ["Hamad AlGhanim"]
+  gem.email = ["hamadyalghanim@gmail.com"]
+  gem.homepage = "https://github.com/Dreamersoul/administrate-field-active_storage"
+  gem.summary = "Administrate fields for active storage"
   gem.description = gem.summary
   gem.license = "MIT"
 
@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
   gem.add_dependency "administrate", ">= 0.2.0.rc1"
+  gem.add_dependency "rails", ">= 5.2"
 
   gem.add_development_dependency "rspec", "~> 3.4"
 end
