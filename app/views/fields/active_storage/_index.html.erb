@@ -18,6 +18,7 @@ By default, the attribute is rendered as an image tag.
   <% if field.many? %>
     <% field.attachments.each do |attachment| %>
       <%= render :partial => 'item', :field => field, :attachment => attachment %>
+      <br/>
     <% end %>
   <% else %>
     <%= render :partial => 'item', :field => field, :attachment => field.data %>
