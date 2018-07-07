@@ -54,7 +54,7 @@ class ModelDashboard < Administrate::BaseDashboard
 i know it is not ideal, if you have a workaround please submit a PR
 
 ### url_only
-only the following needs to change in order for the feild to be url_only
+only the following needs to change in order for the field to be url_only
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
