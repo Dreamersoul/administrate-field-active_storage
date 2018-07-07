@@ -1,0 +1,15 @@
+<% if attachment.image? %>
+  <%= image_tag(field.url(attachment)) %>
+<% elsif attachment.video? and attachment.previewable? %> <%# if ffmpeg is installed %> 
+  <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize: "1920x1080>"), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
+<% elsif attachment.video? %>
+  <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
+<% elsif attachment.audio? %>
+  <%= audio_tag(field.url(attachment), autoplay: true, controls: true) %>
+<% elsif attachment.previewable? %>
+  <%= image_tag(field.preview(attachment, resize: "595x842>")) %>
+  <br/>
+  Download: <%= link_to(attachment.filename, field.blob_url(attachment)) %>
+<% else %>
+  <%= link_to(attachment.filename, field.blob_url(attachment)) %>
+<% end %>

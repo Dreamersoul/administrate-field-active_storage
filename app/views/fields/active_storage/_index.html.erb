@@ -14,18 +14,12 @@ By default, the attribute is rendered as an image tag.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Image
 %>
-<% if field.image? %>
-  <%= image_tag(field.url) %>
-<% elsif field.video? and field.previewable?%> <%# if ffmpeg is installed %> 
-  <%= video_tag(field.url, poster: field.preview(resize: "1920x1080>"), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
-<% elsif field.video? %>
-  <%= video_tag(field.url, controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
-<% elsif field.audio? %>
-  <%= audio_tag(field.url, autoplay: true, controls: true) %>
-<% elsif field.previewable? %>
-  <%= image_tag(field.preview(resize: "595x842>")) %>
-  <br/>
-  Download: <%= link_to(field.filename, field.blob_url) %>
-<% else %>
-  <%= link_to(field.filename, field.blob_url) %>
+<% if field.attached? %>
+  <% if field.many? %>
+    <% field.attachments.each do |attachment| %>
+      <%= render :partial => 'item', :field => field, :attachment => attachment %>
+    <% end %>
+  <% else %>
+    <%= render :partial => 'item', :field => field, :attachment => field.data %>
+  <% end %>
 <% end %>

@@ -9,29 +9,27 @@ module Administrate
       # currently we are using Rails.application.routes.url_helpers 
       # without including the namespace because it runs into an
       # exception
-
-      def url
-        Rails.application.routes.url_helpers.rails_blob_path(data, only_path: true)
+      def many?
+        # find a way to use instance_of
+        data.class.name == "ActiveStorage::Attached::Many"
       end
-
-      def blob_url
-        Rails.application.routes.url_helpers.rails_blob_path(data, disposition: :attachment, only_path: true)
-      end
-      
       # work around since calling data.preview(options)
       # returns "/images/<ActiveStorage::Preview>" which isnt the url
 
-      def preview(options)
-        Rails.application.routes.url_helpers.rails_representation_path(data.preview(options), only_path: true)
+      def preview(attachment, options)
+        Rails.application.routes.url_helpers.rails_representation_path(attachment.preview(options), only_path: true)
+      end
+
+      def url(attachment)
+        Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
       end
       
-      delegate :filename, to: :data
-      delegate :previewable?, to: :data
-      delegate :image?, to: :data
-      delegate :video?, to: :data
-      delegate :audio?, to: :data
-      delegate :audio?, to: :data
-
+      def blob_url(attachment)
+        Rails.application.routes.url_helpers.rails_blob_path(attachment, disposition: :attachment, only_path: true)
+      end
+      
+      delegate :attached?, to: :data
+      delegate :attachments, to: :data
     end
   end
 end
