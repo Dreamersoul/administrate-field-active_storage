@@ -53,6 +53,17 @@ class ModelDashboard < Administrate::BaseDashboard
 ```
 i know it is not ideal, if you have a workaround please submit a PR
 
+### url_only
+only the following needs to change in order for the feild to be url_only
+```ruby
+class ModelDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    attachments: Field::ActiveStorage.with_options({url_only: true}),
+    # ...
+  }
+  # ...
+end
+```
 ## Things To Do:
 
 - [x] upload single file
