@@ -18,6 +18,13 @@ By default, the input is a text field for the image's URL.
 <div class="field-unit__label">
   <%= f.label field.attribute %>
 </div>
+
 <div class="field-unit__field">
+  <% if field.attached? %>
+    <%= render partial: 'fields/active_storage/items', locals: { field: field, removable: true } %>
+    <br />
+    Add:
+  <% end %>
+
   <%= f.file_field field.attribute, multiple: field.many? %>
 </div>
