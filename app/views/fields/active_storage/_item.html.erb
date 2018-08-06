@@ -26,7 +26,6 @@ controlled via a boolean local variable.
   removable = local_assigns.fetch(:removable, false)
 %>
 
-
 <% if attachment.image? and !field.url_only? %>
   <%= image_tag(field.url(attachment)) %>
 <% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
