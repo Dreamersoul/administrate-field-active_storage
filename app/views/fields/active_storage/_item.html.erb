@@ -43,6 +43,6 @@ controlled via a boolean local variable.
 <% end %>
 
 <% if removable %>
-  <%= link_to('Remove', '#', { class: 'remove-attachment-link' }) %>
+  <%= link_to 'Remove', field.destroy_path(field, attachment), method: :delete, class: 'remove-attachment-link' %>
   <hr>
 <% end %>
