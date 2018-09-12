@@ -17,10 +17,10 @@ By default, the attribute is rendered as an image tag.
 <% if field.attached? %>
   <% if field.many? %>
     <% field.attachments.each do |attachment| %>
-      <%= render :partial => 'item', :field => field, :attachment => attachment %>
+      <%= render :partial => 'fields/active_storage/item', locals: { field: field, attachment: attachment } %>
       <br/>
     <% end %>
   <% else %>
-    <%= render :partial => 'item', :field => field, :attachment => field.data %>
+    <%= render :partial => 'fields/active_storage/item', locals: { field: field, attachment: field.data } %>
   <% end %>
 <% end %>
