@@ -5,7 +5,7 @@
 <% elsif attachment.video? and !field.url_only? %>
   <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.audio? and !field.url_only? %>
-  <%= audio_tag(field.url(attachment), autoplay: true, controls: true) %>
+  <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>
 <% elsif attachment.previewable? and !field.url_only? %>
   <%= image_tag(field.preview(attachment, resize: "595x842>")) %>
   <br/>
