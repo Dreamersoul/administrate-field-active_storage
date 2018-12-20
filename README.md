@@ -1,11 +1,11 @@
 # Administrate::Field::ActiveStorage
 ![rails](https://img.shields.io/badge/rails-%3E%3D5.2.0-red.svg)
+
 ## Things To Know:
-- to preview pdf files you need to install `mupdf` or `Poppler`.
-- to preview video files you need to install `ffmpeg`.
+- To preview pdf files you need to install `mupdf` or `Poppler`.
+- To preview video files you need to install `ffmpeg`.
 
 ## How To Use:
-
 Add `administrate-field-active_storage` to your Gemfile:
 
 ```ruby
@@ -19,7 +19,7 @@ $ bundle install
 ```
 
 ### `has_one_attached`:
-assuming your modelname is `Model` and field name is `attachment`
+Assuming your model name is `Model` and field name is `attachment`
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
@@ -28,11 +28,10 @@ class ModelDashboard < Administrate::BaseDashboard
 # ...
 ```
 Then add `:attachment` to `FORM_ATTRIBUTES` and `SHOW_PAGE_ATTRIBUTES`.
-currently adding `:attachment` `COLLECTION_ATTRIBUTES` will work but will probably look too big.
+Adding `:attachment` `COLLECTION_ATTRIBUTES` will work but will probably look too big.
 
 ### `has_many_attached`:
-assuming your modelname is `Model` and field name is `attachments`
-the processs is identical the only issue is that the form field isn't being permitted, in order to permit it we apply the following method to the dashboard:
+Assuming your model name is `Model` and field name is `attachments` the processs is identical the only issue is that the form field isn't being permitted, in order to permit it we apply the following method to the dashboard:
 
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
@@ -51,10 +50,10 @@ class ModelDashboard < Administrate::BaseDashboard
     super + [:attachments => []]
   end
 ```
-i know it is not ideal, if you have a workaround please submit a PR
+I know it is not ideal, if you have a workaround please submit a PR.
 
 ### url_only
-only the following needs to change in order for the field to be url_only
+Only the following needs to change in order for the field to be url_only
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
@@ -64,8 +63,8 @@ class ModelDashboard < Administrate::BaseDashboard
   # ...
 end
 ```
-## Things To Do:
 
+## Things To Do:
 - [x] upload single file
 - [x] adding image support through url_for to support 3rd party cloud storage
 - [x] use html 5 video element for video files
@@ -77,12 +76,12 @@ end
 - [ ] find a way to delete attachments
 - [ ] preview office files as pictures
 
-## Contribution guide:
+## Contribution Guide:
 1. contributers are welcome (code, suggestions, and bugs).
 2. please document your code.
 3. add your name to the `contribute.md`.
 
-    please note that this is my first gem :) i might have gotten some stuff wrong PR's are always welcome
+Please note that this is my first gem :) i might have gotten some stuff wrong PR's are always welcome.
+
 ---
 Based on the [Administrate::Field::Image](https://github.com/thoughtbot/administrate-field-image) template, and inspired by [Administrate::Field::Paperclip](https://github.com/picandocodigo/administrate-field-paperclip).
-

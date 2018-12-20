@@ -16,6 +16,10 @@ module Administrate
         data.class.name == "ActiveStorage::Attached::Many"
       end
 
+      # def destroy_path?
+      #   options.fetch(:destroy_path, false).present?
+      # end
+
       # currently we are using Rails.application.routes.url_helpers 
       # without including the namespace because it runs into an
       # exception
@@ -32,6 +36,14 @@ module Administrate
       
       def blob_url(attachment)
         Rails.application.routes.url_helpers.rails_blob_path(attachment, disposition: :attachment, only_path: true)
+      end
+
+      def destroy_path(field, attachment)
+        destroy_path_helper = options.fetch(:destroy_path)
+        record_id = field.data.record.id
+        attachment_id = attachment.id
+
+        Rails.application.routes.url_helpers.send(destroy_path_helper, record_id, attachment_id)
       end
       
       delegate :attached?, to: :data

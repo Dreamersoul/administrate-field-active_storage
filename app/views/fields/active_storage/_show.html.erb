@@ -14,13 +14,7 @@ By default, the attribute is rendered as an image tag.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Image
 %>
+
 <% if field.attached? %>
-  <% if field.many? %>
-    <% field.attachments.each do |attachment| %>
-      <%= render :partial => 'fields/active_storage/item', locals: { field: field, attachment: attachment } %>
-      <br/>
-    <% end %>
-  <% else %>
-    <%= render :partial => 'fields/active_storage/item', locals: { field: field, attachment: field.data } %>
-  <% end %>
+  <%= render partial: 'fields/active_storage/items', locals: { field: field } %>
 <% end %>
