@@ -1,6 +1,34 @@
+<%#
+# Item Partial
+
+This partial renders attached items.
+
+Attachments of type image, video and audio are emedded.  For all other types
+we try use it's preview.  If all else fails we simply link to the attached file.
+
+This partial will optionally show a `remove` link next to each attachment which is
+controlled via a boolean local variable.
+
+## Local variables:
+
+- `field`:
+  An instance of [Administrate::Field::Image].
+  A wrapper around the image url pulled from the database.
+- `attachment`:
+  Reference to the file
+- `removable`:
+  A boolean used to control the display of a `Remove` link which
+  is used to destroy a single attachment.  Defaults to `false`
+%>
+
+<%
+  # By default we don't allow attachment removal
+  removable = local_assigns.fetch(:removable, false)
+%>
+
 <% if attachment.image? and !field.url_only? %>
   <%= image_tag(field.url(attachment)) %>
-<% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %> 
+<% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
   <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize: "1920x1080>"), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.video? and !field.url_only? %>
   <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
@@ -12,4 +40,9 @@
   Download: <%= link_to(attachment.filename, field.blob_url(attachment)) %>
 <% else %>
   <%= link_to(attachment.filename, field.blob_url(attachment)) %>
+<% end %>
+
+<% if removable %>
+  <%= link_to 'Remove', field.destroy_path(field, attachment), method: :delete, class: 'remove-attachment-link' %>
+  <hr>
 <% end %>
