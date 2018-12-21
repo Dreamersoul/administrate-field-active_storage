@@ -11,6 +11,10 @@ module Administrate
         options.fetch(:url_only, false)
       end
 
+      def destroyable?
+        options.key?(:destroy_path)
+      end
+
       def many?
         # find a way to use instance_of
         data.class.name == "ActiveStorage::Attached::Many"
@@ -42,8 +46,7 @@ module Administrate
         destroy_path_helper = options.fetch(:destroy_path)
         record_id = field.data.record.id
         attachment_id = attachment.id
-
-        Rails.application.routes.url_helpers.send(destroy_path_helper, record_id, attachment_id)
+        Rails.application.routes.url_helpers.send(destroy_path_helper, {:record_id => record_id, :attachment_id => attachment_id})
       end
       
       delegate :attached?, to: :data

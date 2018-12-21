@@ -31,7 +31,7 @@ Then add `:attachment` to `FORM_ATTRIBUTES` and `SHOW_PAGE_ATTRIBUTES`.
 Adding `:attachment` `COLLECTION_ATTRIBUTES` will work but will probably look too big.
 
 ### `has_many_attached`:
-Assuming your model name is `Model` and field name is `attachments` the processs is identical the only issue is that the form field isn't being permitted, in order to permit it we apply the following method to the dashboard:
+Assuming your model name is `Model` and field name is `attachments` the process is identical the only issue is that the form field isn't being permitted, in order to permit it we apply the following method to the dashboard:
 
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
@@ -51,6 +51,29 @@ class ModelDashboard < Administrate::BaseDashboard
   end
 ```
 I know it is not ideal, if you have a workaround please submit a PR.
+
+### Removing/Deleting an Attachment
+In order to allow the user to delete an attachment using the admin dashboard you need to do the following:
+1. create a controller action with a `delete` route
+2. point the `Field::ActiveStorage` field to that route
+
+here is an example (send the route name as a symbol):
+```ruby
+class ModelDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    attachment: Field::ActiveStorage.with_options({destroy_path: :custom_active_storage_destroy_path}),
+  }
+# ...
+```
+Your `routes.rb` file must point to a controller action with method `delete` which should contain the following piece of code (you can modify to your own liking).
+**FOR SECURITY REASONS** please check if the current user is allowed to remove such file
+```ruby
+  def remove_attachment
+    attachment = ActiveStorage::Attachment.find(params[:attachment_id])
+    attachment.purge
+    redirect_back(fallback_location: "/")
+  end
+```
 
 ### url_only
 Only the following needs to change in order for the field to be url_only
@@ -73,7 +96,7 @@ end
 - [x] preview videos
 - [x] preview pdfs
 - [x] upload multiple files
-- [ ] find a way to delete attachments
+- [x] find a way to delete attachments
 - [ ] preview office files as pictures
 
 ## Contribution Guide:
