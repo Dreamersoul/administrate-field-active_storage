@@ -20,6 +20,10 @@ module Administrate
         data.class.name == "ActiveStorage::Attached::Many"
       end
 
+      def direct?
+        options.fetch(:direct_upload, false)
+      end
+
       # def destroy_path?
       #   options.fetch(:destroy_path, false).present?
       # end
