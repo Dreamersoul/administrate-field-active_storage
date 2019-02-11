@@ -87,6 +87,20 @@ class ModelDashboard < Administrate::BaseDashboard
 end
 ```
 
+### direct_upload
+If you want to upload directly from the browser to the cloud you can use direct_upload
+```ruby
+class ModelDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    attachments: Field::ActiveStorage.with_options({direct_upload: true}),
+    # ...
+  }
+  # ...
+end
+```
+
+Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads). You can use `rails generate administrate:assets:javascripts` to be able to customize Administrate JavaScripts in your application.
+
 ## Things To Do:
 - [x] upload single file
 - [x] adding image support through url_for to support 3rd party cloud storage
