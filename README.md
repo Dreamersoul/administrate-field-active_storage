@@ -87,6 +87,28 @@ class ModelDashboard < Administrate::BaseDashboard
 end
 ```
 
+### show_in_index
+This will preview thumbnails in the index page and if you're using `has_many` it will show the first one as a thumbnail and a count of the total attached files
+```ruby
+class ModelDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    attachments: Field::ActiveStorage.with_options({show_in_index: true}),
+    # ...
+  }
+  # ...
+end
+```
+
+## show_preview_size
+Supply the size of the image preview inside the show page check out the mini_magic documentation for resize
+```ruby
+class ModelDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    attachments: Field::ActiveStorage.with_options({show_preview_size:  '150x200>'}),
+    # ...
+  }
+  # ...
+end
 ### direct_upload
 If you want to upload directly from the browser to the cloud you can use direct_upload
 ```ruby

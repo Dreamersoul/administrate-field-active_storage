@@ -24,12 +24,13 @@ controlled via a boolean local variable.
 <%
   # By default we don't allow attachment removal
   removable = local_assigns.fetch(:removable, false)
+  image_size = local_assigns.fetch(:image_size, "1920x1080>")
 %>
 
 <% if attachment.image? and !field.url_only? %>
-  <%= image_tag(field.url(attachment)) %>
+  <%= image_tag(field.variant(attachment, resize: image_size)) %>
 <% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
-  <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize: "1920x1080>"), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
+  <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize: image_size), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.video? and !field.url_only? %>
   <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.audio? and !field.url_only? %>

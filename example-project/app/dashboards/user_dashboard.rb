@@ -10,9 +10,9 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    avatars: Field::ActiveStorage.with_options({:destroy_path => :custom_active_record_remove_path}),
+    avatars: Field::ActiveStorage.with_options({:destroy_path => :custom_active_record_remove_path, :show_in_index => true}),
     created_at: Field::DateTime,
-    updated_at: Field::DateTime,
+    updated_at: Field::DateTime
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -23,7 +23,7 @@ class UserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :name,
-    :avatars,
+    :avatars
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,7 +33,7 @@ class UserDashboard < Administrate::BaseDashboard
     :name,
     :avatars,
     :created_at,
-    :updated_at,
+    :updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -41,7 +41,7 @@ class UserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = [
     :name,
-    :avatars,
+    :avatars
   ].freeze
 
   # Overwrite this method to customize how users are displayed

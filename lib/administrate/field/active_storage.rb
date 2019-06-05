@@ -1,5 +1,5 @@
-require "administrate/field/base"
-require "rails"
+require 'administrate/field/base'
+require 'rails'
 
 module Administrate
   module Field
@@ -15,9 +15,17 @@ module Administrate
         options.key?(:destroy_path)
       end
 
+      def show_in_index?
+        options.key?(:destroy_path)
+      end
+
+      def show_preview_size
+        options.fetch(:show_preview_size, "1080x1920>")
+      end
+
       def many?
         # find a way to use instance_of
-        data.class.name == "ActiveStorage::Attached::Many"
+        data.class.name == 'ActiveStorage::Attached::Many'
       end
 
       def direct?
@@ -28,7 +36,7 @@ module Administrate
       #   options.fetch(:destroy_path, false).present?
       # end
 
-      # currently we are using Rails.application.routes.url_helpers 
+      # currently we are using Rails.application.routes.url_helpers
       # without including the namespace because it runs into an
       # exception
 
@@ -38,10 +46,14 @@ module Administrate
         Rails.application.routes.url_helpers.rails_representation_path(attachment.preview(options), only_path: true)
       end
 
+      def variant(attachment, options)
+        Rails.application.routes.url_helpers.rails_representation_path(attachment.variant(combine_options: options), only_path: true)
+      end
+
       def url(attachment)
         Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
       end
-      
+
       def blob_url(attachment)
         Rails.application.routes.url_helpers.rails_blob_path(attachment, disposition: :attachment, only_path: true)
       end
@@ -52,7 +64,7 @@ module Administrate
         attachment_id = attachment.id
         Rails.application.routes.url_helpers.send(destroy_path_helper, {:record_id => record_id, :attachment_id => attachment_id})
       end
-      
+
       delegate :attached?, to: :data
       delegate :attachments, to: :data
     end
