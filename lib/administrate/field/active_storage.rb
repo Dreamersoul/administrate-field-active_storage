@@ -16,7 +16,7 @@ module Administrate
       end
 
       def show_in_index?
-        options.key?(:destroy_path)
+        options.fetch(:show_in_index, false)
       end
 
       def show_preview_size
