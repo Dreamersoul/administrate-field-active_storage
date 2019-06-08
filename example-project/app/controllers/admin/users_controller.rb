@@ -3,12 +3,12 @@ module Admin
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
-    # def index
-    #   super
-    #   @resources = User.
-    #     page(params[:page]).
-    #     per(10)
-    # end
+    def index
+      super
+      @resources = User.with_attached_avatars.
+        page(params[:page]).
+        per(10)
+    end
 
     # Define a custom finder by overriding the `find_resource` method:
     # def find_resource(param)

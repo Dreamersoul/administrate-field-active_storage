@@ -52,6 +52,22 @@ class ModelDashboard < Administrate::BaseDashboard
 ```
 I know it is not ideal, if you have a workaround please submit a PR.
 
+### Prevent N+1 queries
+In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
+```ruby
+module Admin
+  class UsersController < Admin::ApplicationController
+    def index
+      super
+      @resources = User.with_attached_avatars.
+        page(params[:page]).
+        per(10)
+    end
+  end
+end
+
+```
+
 ### Removing/Deleting an Attachment
 In order to allow the user to delete an attachment using the admin dashboard you need to do the following:
 1. create a controller action with a `delete` route
