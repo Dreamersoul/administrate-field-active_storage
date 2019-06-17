@@ -115,7 +115,7 @@ class ModelDashboard < Administrate::BaseDashboard
 end
 ```
 
-## show_preview_size
+### show_preview_size
 Supply the size of the image preview inside the show page check out the mini_magic documentation for resize
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
@@ -125,6 +125,8 @@ class ModelDashboard < Administrate::BaseDashboard
   }
   # ...
 end
+```
+
 ### direct_upload
 If you want to upload directly from the browser to the cloud you can use direct_upload
 ```ruby
