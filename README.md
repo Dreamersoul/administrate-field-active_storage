@@ -6,10 +6,15 @@
 - To preview video files you need to install `ffmpeg`.
 
 ## How To Use:
-Add `administrate-field-active_storage` to your Gemfile:
+Add `administrate-field-active_storage` to your Gemfile (rails 6):
 
 ```ruby
 gem 'administrate-field-active_storage'
+```
+
+for rails 5.x use the following
+```ruby
+gem 'administrate-field-active_storage' -v 0.1.8
 ```
 
 Install:
