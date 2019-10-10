@@ -20,7 +20,7 @@ By default, the input is a text field for the image's URL.
 </div>
 
 <div class="field-unit__field">
-  <% if field.attached? %>
+  <% if field.data.present? && field.attached? %>
     <%= render partial: 'fields/active_storage/items', locals: { field: field, removable: field.destroyable? } %>
     <br />
     Add:

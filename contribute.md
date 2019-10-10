@@ -7,3 +7,4 @@
 - Peter Bhat Harkins [@pushcx](https://github.com/pushcx)
 - Delta Purna Widyangga [@deltapurna](https://github.com/deltapurna)
 - Joé Dupuis [@twistedjoe](https://github.com/twistedjoe)
+- Eugeny Khlopin [@evgeniy-khlopin](https://github.com/evgeniy-khlopin)
