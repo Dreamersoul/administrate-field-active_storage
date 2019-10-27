@@ -24,7 +24,7 @@ By default, the attribute is rendered as an image tag.
 %>
 <% if field.attached? %>
   <% if field.show_in_index? %>
-    <%= render partial: 'fields/active_storage/item', locals: { field: field, attachment: attachments[0], image_size: "250x250>" } %>
+    <%= render partial: 'fields/active_storage/item', locals: { field: field, attachment: attachments[0], image_size: [250, 250] } %>
   <% end %>
   <%= pluralize(attachments.count, 'Attached file') %>
 <% else %>

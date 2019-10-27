@@ -20,7 +20,7 @@ module Administrate
       end
 
       def show_preview_size
-        options.fetch(:show_preview_size, "1080x1920>")
+        options.fetch(:show_preview_size, [1080, 1920])
       end
 
       def many?
