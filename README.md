@@ -163,7 +163,5 @@ Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrail
 2. please document your code.
 3. add your name to the `contribute.md`.
 
-Please note that this is my first gem :) i might have gotten some stuff wrong PR's are always welcome.
-
 ---
 Based on the [Administrate::Field::Image](https://github.com/thoughtbot/administrate-field-image) template, and inspired by [Administrate::Field::Paperclip](https://github.com/picandocodigo/administrate-field-paperclip).
