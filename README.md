@@ -4,6 +4,7 @@
 ## Things To Know:
 - To preview pdf files you need to install `mupdf` or `Poppler`.
 - To preview video files you need to install `ffmpeg`.
+- To preview Office files as pictures you need to install [activestorage-office-previewer](https://github.com/basecamp/activestorage-office-previewer) by basecamp
 
 ## How To Use:
 Add `administrate-field-active_storage` to your Gemfile (rails 6):
@@ -156,7 +157,7 @@ Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrail
 - [x] preview pdfs
 - [x] upload multiple files
 - [x] find a way to delete attachments
-- [ ] preview office files as pictures
+- [x] preview office files as pictures
 
 ## Contribution Guide:
 1. contributers are welcome (code, suggestions, and bugs).
