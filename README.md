@@ -63,11 +63,8 @@ In order to prevent N+1 queries from active storage you have to modify your admi
 ```ruby
 module Admin
   class UsersController < Admin::ApplicationController
-    def index
-      super
-      @resources = User.with_attached_avatars.
-        page(params[:page]).
-        per(10)
+    def scoped_resource
+      resource_class.with_attached_avatars
     end
   end
 end
