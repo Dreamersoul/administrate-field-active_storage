@@ -119,11 +119,11 @@ end
 ```
 
 ### show_preview_size
-Supply the size of the image preview inside the show page check out the mini_magic documentation for resize
+Supply the size of the image preview inside the show page.  Check out the [mini_magic#resize_to_limit](https://github.com/janko/image_processing/blob/master/doc/minimagick.md#methods) documentation
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    attachments: Field::ActiveStorage.with_options({show_preview_size:  '150x200>'}),
+    attachments: Field::ActiveStorage.with_options({show_preview_size:  [150, 200]}),
     # ...
   }
   # ...
