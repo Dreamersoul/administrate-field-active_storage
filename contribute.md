@@ -9,4 +9,4 @@
 - Joé Dupuis [@twistedjoe](https://github.com/twistedjoe)
 - Eugeny Khlopin [@evgeniy-khlopin](https://github.com/evgeniy-khlopin)
 - Daniel Tinoco [@0urobor0s](https://github.com/0urobor0s)
-- Matthew [@nhui](https://github.com/mhui)
+- Matthew Hui [@mhui](https://github.com/mhui)
