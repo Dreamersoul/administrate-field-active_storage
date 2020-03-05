@@ -27,9 +27,13 @@ controlled via a boolean local variable.
   image_size = local_assigns.fetch(:image_size, [1920, 1080])
 %>
 
-<% if attachment.image? and !field.url_only? %>
+<% if attachment.image? and attachment.variable? and !field.url_only? %>
   <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
     <%= image_tag(field.variant(attachment, resize_to_limit: image_size)) %>
+  <% end %>
+<% elsif attachment.image? and !field.url_only? %>
+  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+    <%= image_tag(field.url(attachment)) %>
   <% end %>
 <% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
   <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize_to_limit: image_size), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
