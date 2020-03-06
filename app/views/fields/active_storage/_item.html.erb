@@ -28,21 +28,27 @@ controlled via a boolean local variable.
 %>
 
 <% if attachment.image? and attachment.variable? and !field.url_only? %>
-  <%= image_tag(field.variant(attachment, resize_to_limit: image_size)) %>
+  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+    <%= image_tag(field.variant(attachment, resize_to_limit: image_size)) %>
+  <% end %>
 <% elsif attachment.image? and !field.url_only? %>
-  <%= image_tag(field.url(attachment)) %>
+  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+    <%= image_tag(field.url(attachment)) %>
+  <% end %>
 <% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
   <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize_to_limit: image_size), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.video? and !field.url_only? %>
   <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
 <% elsif attachment.audio? and !field.url_only? %>
   <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>
-<% elsif attachment.previewable? and !field.url_only? %>
-  <%= image_tag(field.preview(attachment, resize_to_limit: [595, 842])) %>
-  <br/>
-  Download: <%= link_to(attachment.filename, field.blob_url(attachment)) %>
 <% else %>
-  <%= link_to(attachment.filename, field.blob_url(attachment)) %>
+  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+    <% if attachment.previewable? and !field.url_only? %>
+      <%= image_tag(field.preview(attachment, resize_to_limit: [595, 842])) %>
+    <% else %>
+      <%= attachment.filename %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if removable %>
