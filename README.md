@@ -7,10 +7,11 @@
 - To preview Office files as pictures you need to install [activestorage-office-previewer](https://github.com/basecamp/activestorage-office-previewer) by basecamp
 
 ## How To Use:
-Add `administrate-field-active_storage` to your Gemfile (rails 6):
+Add `administrate-field-active_storage` and `mini_magick` to your Gemfile (rails 6):
 
 ```ruby
 gem 'administrate-field-active_storage'
+gem 'mini_magick'
 ```
 
 for rails 5.x use the following
