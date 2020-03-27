@@ -95,53 +95,53 @@ Your `routes.rb` file must point to a controller action with method `delete` whi
   end
 ```
 
-### url_only
-Only the following needs to change in order for the field to be url_only
-```ruby
+## Options
+
+Various options can be passed to `Administrate::Field::ActiveStorage#with_options`
+as illustrated below:
+
+```rb
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
-    attachments: Field::ActiveStorage.with_options({url_only: true}),
+    attachments: Field::ActiveStorage.with_options(index_display_preview: false),
     # ...
   }
   # ...
 end
 ```
 
-### show_in_index
-This will preview thumbnails in the index page and if you're using `has_many` it will show the first one as a thumbnail and a count of the total attached files
-```ruby
-class ModelDashboard < Administrate::BaseDashboard
-  ATTRIBUTE_TYPES = {
-    attachments: Field::ActiveStorage.with_options({show_in_index: true}),
-    # ...
-  }
-  # ...
-end
-```
+### show_display_preview
 
-### show_preview_size
-Supply the size of the image preview inside the show page.  Check out the [mini_magic#resize_to_limit](https://github.com/janko/image_processing/blob/master/doc/minimagick.md#methods) documentation
-```ruby
-class ModelDashboard < Administrate::BaseDashboard
-  ATTRIBUTE_TYPES = {
-    attachments: Field::ActiveStorage.with_options({show_preview_size:  [150, 200]}),
-    # ...
-  }
-  # ...
-end
-```
+Display attachment preview.
+
+Defaults to `true`.
+
+### index_display_preview
+
+Displays the first attachment (which is the only attachment in case of `has_one`)
+in the `index` action.
+
+Defaults to `true`.
+
+### index_preview_size and show_preview_size
+
+Indicate the size of the image preview for the `index` and `show` actions, respectively.
+Refer to [mini_magic#resize_to_limit](https://github.com/janko/image_processing/blob/master/doc/minimagick.md#methods)
+for documentation.
+
+Default to `[150, 150]` and `[800, 800]`, respectively.
+
+### index_display_count
+
+Displays the number of attachments in the `index` action.
+
+Defaults to `true` if number of attachments is not 1.
 
 ### direct_upload
-If you want to upload directly from the browser to the cloud you can use direct_upload
-```ruby
-class ModelDashboard < Administrate::BaseDashboard
-  ATTRIBUTE_TYPES = {
-    attachments: Field::ActiveStorage.with_options({direct_upload: true}),
-    # ...
-  }
-  # ...
-end
-```
+
+Enables direct upload from the browser to the cloud.
+
+Defaults to `false`.
 
 Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads). You can use `rails generate administrate:assets:javascripts` to be able to customize Administrate JavaScripts in your application.
 

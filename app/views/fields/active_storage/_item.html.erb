@@ -19,39 +19,47 @@ controlled via a boolean local variable.
 - `removable`:
   A boolean used to control the display of a `Remove` link which
   is used to destroy a single attachment.  Defaults to `false`
+- `size`:
+  [x, y]
+  Maximum size of the ActiveStorage preview.
 %>
 
 <%
   # By default we don't allow attachment removal
   removable = local_assigns.fetch(:removable, false)
-  image_size = local_assigns.fetch(:image_size, [1920, 1080])
 %>
 
-<% if attachment.image? and attachment.variable? and !field.url_only? %>
-  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
-    <%= image_tag(field.variant(attachment, resize_to_limit: image_size)) %>
-  <% end %>
-<% elsif attachment.image? and !field.url_only? %>
-  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
-    <%= image_tag(field.url(attachment)) %>
-  <% end %>
-<% elsif attachment.video? and attachment.previewable? and !field.url_only? %> <%# if ffmpeg is installed %>
-  <%= video_tag(field.url(attachment), poster: field.preview(attachment, resize_to_limit: image_size), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
-<% elsif attachment.video? and !field.url_only? %>
-  <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "width: 100%; height: auto;") %>
-<% elsif attachment.audio? and !field.url_only? %>
-  <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>
-<% else %>
-  <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
-    <% if attachment.previewable? and !field.url_only? %>
-      <%= image_tag(field.preview(attachment, resize_to_limit: [595, 842])) %>
-    <% else %>
-      <%= attachment.filename %>
+<div style="width: <%=size[0]%>px; height: auto; overflow: hidden;">
+  <% if attachment.image? and attachment.variable? and field.show_display_preview? %>
+    <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+      <%= image_tag(field.variant(attachment, resize_to_limit: size)) %>
+    <% end %>
+  <% elsif attachment.image? and field.show_display_preview? %>
+    <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+      <%= image_tag(field.url(attachment)) %>
+    <% end %>
+  <% elsif attachment.video? and attachment.previewable? and field.show_display_preview? %>
+    <%= video_tag(field.url(attachment),
+                  poster: field.preview(attachment, resize_to_limit: size),
+                  controls: true,
+                  autobuffer: true,
+                  style: "object-fit: contain; width: 100%; height: 100%;") %>
+  <% elsif attachment.video? and field.show_display_preview? %>
+    <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: style) %>
+  <% elsif attachment.audio? and field.show_display_preview? %>
+    <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>
+  <% else %>
+    <%= link_to(field.blob_url(attachment), title: attachment.filename) do %>
+      <% if attachment.previewable? and field.show_display_preview? %>
+        <%= image_tag(field.preview(attachment, resize_to_limit: size)) %>
+      <% else %>
+        <%= attachment.filename %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 
-<% if removable %>
-  <%= link_to 'Remove', field.destroy_path(field, attachment), method: :delete, class: 'remove-attachment-link' %>
-  <hr>
-<% end %>
+  <% if removable %>
+    <%= link_to 'Remove', field.destroy_path(field, attachment), method: :delete, class: 'remove-attachment-link' %>
+    <hr>
+  <% end %>
+</div>
