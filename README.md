@@ -63,37 +63,69 @@ I know it is not ideal, if you have a workaround please submit a PR.
 In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
 ```ruby
 module Admin
-  class UsersController < Admin::ApplicationController
+  class UsersController < ApplicationController
     def scoped_resource
       resource_class.with_attached_avatars
     end
   end
 end
-
 ```
 
 ### Removing/Deleting an Attachment
-In order to allow the user to delete an attachment using the admin dashboard you need to do the following:
-1. create a controller action with a `delete` route
-2. point the `Field::ActiveStorage` field to that route
 
-here is an example (send the route name as a symbol):
-```ruby
-class ModelDashboard < Administrate::BaseDashboard
-  ATTRIBUTE_TYPES = {
-    attachment: Field::ActiveStorage.with_options({destroy_path: :custom_active_storage_destroy_path}),
-  }
-# ...
-```
-Your `routes.rb` file must point to a controller action with method `delete` which should contain the following piece of code (you can modify to your own liking).
-**FOR SECURITY REASONS** please check if the current user is allowed to remove such file
-```ruby
-  def remove_attachment
-    attachment = ActiveStorage::Attachment.find(params[:attachment_id])
-    attachment.purge
-    redirect_back(fallback_location: "/")
+`Administrate::Field::ActiveStorage` expects the presence of a route
+DELETE `/<namespace>/<resource>/:id/:attachment_name`, which will receive an optional parameter
+`attachment_id` in the case of an `ActiveStorage::Attached::Many`. For instance:
+
+```rb
+# routes.rb
+...
+namespace :admin do
+  ...
+  resources :users do
+    delete :avatars, on: :member, action: :destroy_avatar
   end
+end
+
+# app/controllers/admin/users_controller.rb
+module Admin
+  class UsersController < ApplicationController
+
+    # For illustrative purposes only.
+    #
+    # **SECURITY NOTICE**: first verify whether current user is authorized to perform the action.
+    def destroy_avatar
+      avatar = requested_resource.avatars.find(params[:attachment_id])
+      avatar.purge
+      redirect_back(fallback_location: requested_resource)
+    end
+  end
+end
 ```
+
+This route can be customized with `destroy_url`. The option expects a `proc` receiving 3 arguments:
+the Administrate `namespace`, the `resource`, and the `attachment`. The proc can return anything
+accepted by `link_to`:
+
+```rb
+# routes.rb
+delete :custom_user_avatar_destroy, to: 'users#destroy_avatar'
+
+# user_dashboard.rb
+class UserDashboard < Administrate::BaseDashboard
+  ATTRIBUTE_TYPES = {
+    avatars: Field::ActiveStorage.with_options(
+      destroy_url: proc do |namespace, resource, attachment|
+        [:custom_user_avatar_destroy, { attachment_id: attachment.id }]
+      end
+    ),
+    # ...
+  end
+  # ...
+end
+```
+
+To disable this feature, set `destroy_url` to `nil`.
 
 ## Options
 
