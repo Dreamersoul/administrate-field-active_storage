@@ -22,7 +22,7 @@ By default, the attribute is rendered as an image tag.
   }
   </style>
   <% if field.index_display_preview? %>
-    <%= render partial: 'fields/active_storage/item',
+    <%= render partial: 'fields/active_storage/preview',
                locals: {
                    field: field,
                    attachment: field.attachments[0],
