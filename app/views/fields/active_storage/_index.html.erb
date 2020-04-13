@@ -14,19 +14,25 @@ By default, the attribute is rendered as an image tag.
 
 [1]: http://www.rubydoc.info/gems/administrate/Administrate/Field/Image
 %>
-<style> <%# figure out a way to remove this %>
-  td img {
-      max-height: unset !important;
-  }
-</style>
-<% 
-  attachments = Array(field.many? ? field.attachments : field.data)
-%>
+
 <% if field.attached? %>
-  <% if field.show_in_index? %>
-    <%= render partial: 'fields/active_storage/item', locals: { field: field, attachment: attachments[0], image_size: [250, 250] } %>
+  <style> <%# figure out a way to remove this %>
+  td img {
+    max-height: unset !important;
+  }
+  </style>
+  <% if field.index_display_preview? %>
+    <%= render partial: 'fields/active_storage/preview',
+               locals: {
+                   field: field,
+                   attachment: field.attachments[0],
+                   size: field.index_preview_size
+               } %>
   <% end %>
-  <%= pluralize(attachments.count, 'Attached file') %>
-<% else %>
-0 Attached files
+
+  <% if field.index_display_count? %>
+    <div class="attachments-count">
+      <%= pluralize(field.attachments.count, 'Attachment') %>
+    </div>
+  <% end %>
 <% end %>

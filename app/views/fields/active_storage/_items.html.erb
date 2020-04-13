@@ -9,17 +9,22 @@ This partial renders one or more attachments
   An instance of [Administrate::Field::Image].
   A wrapper around the image url pulled from the database.
 - `removable`:
-  A boolean used to control the display of a `Remove` link which 
+  A boolean used to control the display of a `Remove` link which
   is used to destroy a single attachment.  Defaults to `false`
 %>
 
-<% 
-  attachments = Array(field.many? ? field.attachments : field.data)
+<%
   removable = local_assigns.fetch(:removable, false)
 %>
 
-<% attachments.each do |attachment| %>
+<% field.attachments.each do |attachment| %>
   <div class="attachments-listing">
-    <%= render partial: 'fields/active_storage/item', locals: { field: field, attachment: attachment, removable: removable, image_size: field.show_preview_size } %>
+    <%= render partial: 'fields/active_storage/item',
+               locals: {
+                   field: field,
+                   attachment: attachment,
+                   removable: removable,
+                   size: field.show_preview_size
+               } %>
   </div>
 <% end %>

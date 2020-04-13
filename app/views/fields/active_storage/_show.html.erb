@@ -17,4 +17,6 @@ By default, the attribute is rendered as an image tag.
 
 <% if field.attached? %>
   <%= render partial: 'fields/active_storage/items', locals: { field: field } %>
+<% else %>
+  No attachment
 <% end %>

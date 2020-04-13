@@ -7,20 +7,28 @@ module Administrate
       class Engine < ::Rails::Engine
       end
 
-      def url_only?
-        options.fetch(:url_only, false)
-      end
-
       def destroyable?
         options.key?(:destroy_path)
       end
 
-      def show_in_index?
-        options.fetch(:show_in_index, false)
+      def index_display_preview?
+        options.fetch(:index_display_preview, true)
+      end
+
+      def index_preview_size
+        options.fetch(:index_preview_size, [150, 150])
+      end
+
+      def index_display_count?
+        options.fetch(:index_display_count) { attachments.count != 1 }
+      end
+
+      def show_display_preview?
+        options.fetch(:show_display_preview, true)
       end
 
       def show_preview_size
-        options.fetch(:show_preview_size, [1080, 1920])
+        options.fetch(:show_preview_size, [800, 800])
       end
 
       def many?
@@ -65,7 +73,14 @@ module Administrate
         Rails.application.routes.url_helpers.send(destroy_path_helper, {:record_id => record_id, :attachment_id => attachment_id})
       end
 
-      delegate :attached?, to: :data
+      def can_add_attachment?
+        many? || attachments.empty?
+      end
+
+      def attached?
+        data.present? && data.attached?
+      end
+
       delegate :attachments, to: :data
     end
   end
