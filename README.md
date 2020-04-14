@@ -12,6 +12,7 @@ Add `administrate-field-active_storage` and `mini_magick` to your Gemfile (rails
 ```ruby
 gem 'administrate-field-active_storage'
 gem 'mini_magick'
+gem "image_processing"
 ```
 
 for rails 5.x use the following
