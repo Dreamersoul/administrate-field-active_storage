@@ -10,7 +10,9 @@ class UserDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    avatars: Field::ActiveStorage.with_options({:destroy_path => :custom_active_record_remove_path, :show_in_index => true}),
+    avatars: Field::ActiveStorage.with_options(
+      show_in_index: true
+    ),
     created_at: Field::DateTime,
     updated_at: Field::DateTime
   }.freeze

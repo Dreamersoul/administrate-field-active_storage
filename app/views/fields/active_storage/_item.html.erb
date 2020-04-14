@@ -24,11 +24,6 @@ controlled via a boolean local variable.
   Maximum size of the ActiveStorage preview.
 %>
 
-<%
-  # By default we don't allow attachment removal
-  removable = local_assigns.fetch(:removable, false)
-%>
-
 <div>
   <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
 </div>
@@ -37,7 +32,10 @@ controlled via a boolean local variable.
   <%= link_to 'Download', field.blob_url(attachment), title: attachment.filename %>
 </div>
 
-<% if removable %>
-  <%= link_to 'Remove', field.destroy_path(field, attachment), method: :delete, class: 'remove-attachment-link' %>
+<% if field.destroy_url.present? %>
+  <% destroy_url = field.destroy_url.call(namespace, field.data.record, attachment) %>
+  <div>
+    <%= link_to 'Remove', destroy_url, method: :delete, class: 'remove-attachment-link' %>
+  </div>
   <hr>
 <% end %>

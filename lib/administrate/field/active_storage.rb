@@ -7,10 +7,6 @@ module Administrate
       class Engine < ::Rails::Engine
       end
 
-      def destroyable?
-        options.key?(:destroy_path)
-      end
-
       def index_display_preview?
         options.fetch(:index_display_preview, true)
       end
@@ -20,7 +16,7 @@ module Administrate
       end
 
       def index_display_count?
-        options.fetch(:index_display_count) { attachments.count != 1 }
+        options.fetch(:index_display_count) { attachments.present? && attachments.count != 1 }
       end
 
       def show_display_preview?
@@ -32,17 +28,22 @@ module Administrate
       end
 
       def many?
-        # find a way to use instance_of
-        data.class.name == 'ActiveStorage::Attached::Many'
+        data.is_a? ::ActiveStorage::Attached::Many
       end
 
       def direct?
         options.fetch(:direct_upload, false)
       end
 
-      # def destroy_path?
-      #   options.fetch(:destroy_path, false).present?
-      # end
+      def destroy_url
+        options.fetch(:destroy_url) do
+          proc do |namespace, record, attachment|
+            options = [attachment.name, namespace, record]
+            options << { attachment_id: attachment.id } if many?
+            options
+          end
+        end
+      end
 
       # currently we are using Rails.application.routes.url_helpers
       # without including the namespace because it runs into an
@@ -66,22 +67,17 @@ module Administrate
         Rails.application.routes.url_helpers.rails_blob_path(attachment, disposition: :attachment, only_path: true)
       end
 
-      def destroy_path(field, attachment)
-        destroy_path_helper = options.fetch(:destroy_path)
-        record_id = field.data.record.id
-        attachment_id = attachment.id
-        Rails.application.routes.url_helpers.send(destroy_path_helper, {:record_id => record_id, :attachment_id => attachment_id})
-      end
-
       def can_add_attachment?
-        many? || attachments.empty?
+        many? || attachments.blank?
       end
 
       def attached?
         data.present? && data.attached?
       end
 
-      delegate :attachments, to: :data
+      def attachments
+        data.attachments if attached?
+      end
     end
   end
 end
