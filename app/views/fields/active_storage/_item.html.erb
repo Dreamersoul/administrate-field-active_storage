@@ -23,10 +23,11 @@ controlled via a boolean local variable.
   [x, y]
   Maximum size of the ActiveStorage preview.
 %>
-
-<div>
-  <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
-</div>
+<% if field.show_display_preview? %>
+  <div>
+    <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
+  </div>
+<% end %>
 
 <div>
   <%= link_to 'Download', field.blob_url(attachment), title: attachment.filename %>
