@@ -9,3 +9,4 @@
 /tmp/
 *.gem
 .DS_Store
+.vscode/settings.json
