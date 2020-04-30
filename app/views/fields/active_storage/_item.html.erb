@@ -30,7 +30,7 @@ controlled via a boolean local variable.
 <% end %>
 
 <div>
-  <%= link_to 'Download', field.blob_url(attachment), title: attachment.filename %>
+  <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename %>
 </div>
 
 <% if field.destroy_url.present? %>

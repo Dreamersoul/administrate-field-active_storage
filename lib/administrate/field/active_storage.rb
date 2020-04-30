@@ -36,13 +36,7 @@ module Administrate
       end
 
       def destroy_url
-        options.fetch(:destroy_url) do
-          proc do |namespace, record, attachment|
-            options = [attachment.name, namespace, record]
-            options << { attachment_id: attachment.id } if many?
-            options
-          end
-        end
+        options.fetch(:destroy_url, nil)
       end
 
       # currently we are using Rails.application.routes.url_helpers
