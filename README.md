@@ -102,7 +102,33 @@ module Admin
   end
 end
 ```
+For `has_one_attached` cases, you will use:
 
+```rb
+# routes.rb
+...
+namespace :admin do
+  ...
+  resources :users do
+    delete :avatar, on: :member, action: :destroy_avatar
+  end
+end
+
+# app/controllers/admin/users_controller.rb
+module Admin
+  class UsersController < ApplicationController
+
+    # For illustrative purposes only.
+    #
+    # **SECURITY NOTICE**: first verify whether current user is authorized to perform the action.
+    def destroy_avatar
+      avatar = requested_resource.avatar
+      avatar.purge
+      redirect_back(fallback_location: requested_resource)
+    end
+  end
+end
+```
 This route can be customized with `destroy_url`. The option expects a `proc` receiving 3 arguments:
 the Administrate `namespace`, the `resource`, and the `attachment`. The proc can return anything
 accepted by `link_to`:
