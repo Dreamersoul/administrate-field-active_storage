@@ -151,8 +151,6 @@ class UserDashboard < Administrate::BaseDashboard
 end
 ```
 
-To disable this feature, set `destroy_url` to `nil`.
-
 ## Options
 
 Various options can be passed to `Administrate::Field::ActiveStorage#with_options`
