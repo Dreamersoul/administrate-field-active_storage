@@ -13,7 +13,7 @@
                     autobuffer: true,
                     style: "object-fit: contain; width: 100%; height: 100%;") %>
     <% else %>
-      <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: style) %>
+      <%= video_tag(field.url(attachment), controls: true, autobuffer: true, style: "object-fit: contain; width: 100%; height: 100%;") %>
     <% end %>
   <% elsif attachment.audio? %>
     <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>
