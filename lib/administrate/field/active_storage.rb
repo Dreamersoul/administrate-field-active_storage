@@ -16,7 +16,7 @@ module Administrate
       end
 
       def index_display_count?
-        options.fetch(:index_display_count) { attachments.present? && attachments.count != 1 }
+        options.fetch(:index_display_count) { attached? && attachments.count != 1 }
       end
 
       def show_display_preview?

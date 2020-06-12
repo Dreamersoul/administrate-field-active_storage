@@ -25,7 +25,7 @@ By default, the attribute is rendered as an image tag.
     <%= render partial: 'fields/active_storage/preview',
                locals: {
                    field: field,
-                   attachment: field.attachments[0],
+                   attachment: field.data,
                    size: field.index_preview_size
                } %>
   <% end %>
