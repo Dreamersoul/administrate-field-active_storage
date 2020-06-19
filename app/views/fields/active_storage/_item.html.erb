@@ -36,7 +36,7 @@ controlled via a boolean local variable.
 <% if field.destroy_url.present? %>
   <% destroy_url = field.destroy_url.call(namespace, field.data.record, attachment) %>
   <div>
-    <%= link_to 'Remove', destroy_url, method: :delete, class: 'remove-attachment-link' %>
+    <%= link_to 'Remove', destroy_url, method: :delete, class: 'remove-attachment-link', data: { confirm: t("administrate.actions.confirm") } %>
   </div>
   <hr>
 <% end %>
