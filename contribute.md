@@ -11,3 +11,4 @@
 - Daniel Tinoco [@0urobor0s](https://github.com/0urobor0s)
 - Matthew Hui [@mhui](https://github.com/mhui)
 - Sébastien Dubois [@sedubois](https://github.com/sedubois)
+- Jazzy Gasper [@jazzygasper](https://github.com/jazzygasper)
