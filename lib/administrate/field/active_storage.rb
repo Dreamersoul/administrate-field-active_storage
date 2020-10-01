@@ -50,7 +50,7 @@ module Administrate
       end
 
       def variant(attachment, options)
-        Rails.application.routes.url_helpers.rails_representation_path(attachment.variant(combine_options: options), only_path: true)
+        Rails.application.routes.url_helpers.rails_representation_path(attachment.variant(options), only_path: true)
       end
 
       def url(attachment)
