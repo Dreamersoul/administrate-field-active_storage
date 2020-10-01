@@ -12,3 +12,4 @@
 - Matthew Hui [@mhui](https://github.com/mhui)
 - Sébastien Dubois [@sedubois](https://github.com/sedubois)
 - Jazzy Gasper [@jazzygasper](https://github.com/jazzygasper)
+- David Ma [@taikon](https://github.com/taikon)
