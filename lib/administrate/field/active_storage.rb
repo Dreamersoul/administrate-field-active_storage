@@ -70,7 +70,7 @@ module Administrate
       end
 
       def attachments
-        data.attachments if attached?
+        many? ? data.attachments : [data.attachment] if attached?
       end
     end
   end
