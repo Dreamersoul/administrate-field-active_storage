@@ -1,22 +1,12 @@
-#!/usr/bin/env rake
+# frozen_string_literal: true
 
-begin
-  require "bundler/setup"
-rescue LoadError
-  puts "You must `gem install bundler` and `bundle install` to run rake tasks"
+require 'bundler/gem_tasks'
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'test_app/test'
+  t.libs << 'lib'
+  t.test_files = FileList['test_app/test/**/*_test.rb']
 end
 
-require "bundler/gem_tasks"
-
-##
-# Configure the test suite.
-##
-require "rspec/core"
-require "rspec/core/rake_task"
-
-RSpec::Core::RakeTask.new
-
-##
-# By default, just run the tests.
-##
-task default: :spec
+task default: %i[test]
