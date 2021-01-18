@@ -1,5 +1,6 @@
 # Administrate::Field::ActiveStorage
 ![rails](https://img.shields.io/badge/rails-%3E%3D5.2.0-red.svg)
+![CI](https://github.com/Dreamersoul/administrate-field-active_storage/workflows/CI/badge.svg)
 
 ## Things To Know:
 - To preview pdf files you need to install `mupdf` or `Poppler`.
