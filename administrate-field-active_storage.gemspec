@@ -16,4 +16,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "administrate", ">= 0.2.2"
   gem.add_dependency "rails", ">= 6.0"
+
+  gem.add_development_dependency 'sqlite3', '~> 1.4'
 end
