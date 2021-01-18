@@ -11,5 +11,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def after_teardown
+    super
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+  end
+
   # Add more helper methods to be used by all tests here...
 end
