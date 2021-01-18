@@ -59,6 +59,8 @@ class ModelDashboard < Administrate::BaseDashboard
 ```
 I know it is not ideal, if you have a workaround please submit a PR.
 
+Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`.  Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values.
+
 ### Prevent N+1 queries
 In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
 ```ruby
