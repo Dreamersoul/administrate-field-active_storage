@@ -17,5 +17,5 @@ jobs:
         key: bundle-use-ruby-${{ matrix.os }}-${{ matrix.ruby }}-${{ hashFiles('**/Gemfile.lock') }}
         restore-keys: |
           bundle-use-ruby-${{ matrix.os }}-${{ matrix.ruby }}-
-    - run: bin/setup
-    - run: bundle exec rake
+    - run: test_app/bin/setup
+    - run: cd test_app && bundle exec rails test
