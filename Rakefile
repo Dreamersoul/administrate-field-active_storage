@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-require 'bundler/gem_tasks'
-require 'rake/testtask'
+require_relative "test_app/config/application"
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'test_app/test'
-  t.libs << 'lib'
-  t.test_files = FileList['test_app/test/**/*_test.rb']
-end
-
-task default: %i[test]
+Rails.application.load_tasks
