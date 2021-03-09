@@ -204,6 +204,10 @@ Defaults to `false`.
 
 Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads). You can use `rails generate administrate:assets:javascripts` to be able to customize Administrate JavaScripts in your application.
 
+## I18n
+
+You can see translation example [here](https://github.com/Dreamersoul/administrate-field-active_storage/blob/master/config/locales/administrate-field-active_storage.en.yml).
+
 ## Things To Do:
 - [x] upload single file
 - [x] adding image support through url_for to support 3rd party cloud storage

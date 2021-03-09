@@ -32,7 +32,10 @@ By default, the attribute is rendered as an image tag.
 
   <% if field.index_display_count? %>
     <div class="attachments-count">
-      <%= pluralize(field.attachments.count, 'Attachment') %>
+      <%= pluralize(field.attachments.count,
+                    I18n.t("administrate.fields.active_storage.attachment", default: 'Attachment')
+          )
+      %>
     </div>
   <% end %>
 <% end %>
