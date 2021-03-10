@@ -17,7 +17,7 @@ gem "image_processing"
 
 for rails 5.x use the following
 ```ruby
-gem 'administrate-field-active_storage' -v 0.1.8
+gem 'administrate-field-active_storage', "0.1.8"
 ```
 
 Install:
