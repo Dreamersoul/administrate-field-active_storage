@@ -18,4 +18,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency "rails", ">= 6.0"
 
   gem.add_development_dependency 'sqlite3', '~> 1.4'
+  gem.add_development_dependency 'i18n-tasks', '~> 0.9.34'
 end
