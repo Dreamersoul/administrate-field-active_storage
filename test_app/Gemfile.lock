@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    administrate-field-active_storage (0.3.6)
+    administrate-field-active_storage (0.3.7)
       administrate (>= 0.2.2)
       rails (>= 6.0)
 
@@ -135,7 +135,9 @@ GEM
     momentjs-rails (2.20.1)
       railties (>= 3.1)
     nio4r (2.5.4)
-    nokogiri (1.11.1-x86_64-darwin)
+    nokogiri (1.12.5-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     public_suffix (4.0.6)
     puma (5.1.1)
@@ -215,6 +217,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   administrate (~> 0.14.0)
