@@ -11,10 +11,15 @@ This partial renders one or more attachments
 - `removable`:
   A boolean used to control the display of a `Remove` link which
   is used to destroy a single attachment.  Defaults to `false`
+- `size`:
+  [x, y]
+  Maximum size of the ActiveStorage preview.
+  Defaults to `field.show_preview_size`.
 %>
 
 <%
   removable = local_assigns.fetch(:removable, false)
+  size = local_assigns.fetch(:size, field.show_preview_size)
 %>
 
 <% field.attachments.each do |attachment| %>
@@ -24,7 +29,7 @@ This partial renders one or more attachments
                    field: field,
                    attachment: attachment,
                    removable: removable,
-                   size: field.show_preview_size
+                   size: size
                } %>
   </div>
 <% end %>
