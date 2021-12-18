@@ -16,7 +16,7 @@ By default, the attribute is rendered as an image tag.
 %>
 
 <% if field.attached? %>
-  <style> <%# figure out a way to remove this %>
+  <style type="text/css" nonce="<%= content_security_policy_nonce %>"> <%# figure out a way to remove this %>
   td img {
     max-height: unset !important;
   }
