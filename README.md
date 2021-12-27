@@ -222,8 +222,9 @@ You can see translation example [here](https://github.com/Dreamersoul/administra
 
 ## Contribution Guide:
 1. contributers are welcome (code, suggestions, and bugs).
-2. please document your code.
-3. add your name to the `contribute.md`.
+2. please test your code: `cd test_app && bundle && bundle exec rails test`.
+3. please document your code.
+4. add your name to the `contribute.md`.
 
 ---
 Based on the [Administrate::Field::Image](https://github.com/thoughtbot/administrate-field-image) template, and inspired by [Administrate::Field::Paperclip](https://github.com/picandocodigo/administrate-field-paperclip).
