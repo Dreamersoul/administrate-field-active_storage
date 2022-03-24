@@ -16,11 +16,6 @@ By default, the attribute is rendered as an image tag.
 %>
 
 <% if field.attached? %>
-  <style type="text/css" nonce="<%= content_security_policy_nonce %>"> <%# figure out a way to remove this %>
-  td img {
-    max-height: unset !important;
-  }
-  </style>
   <% if field.index_display_preview? %>
     <% if field.many? %>
       <%= render partial: 'fields/active_storage/items',

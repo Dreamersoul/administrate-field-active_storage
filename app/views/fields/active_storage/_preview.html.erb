@@ -1,11 +1,4 @@
-<style type="text/css" nonce="<%= content_security_policy_nonce %>">
-  #as-field-<%= attachment.id %> {
-    width: <%=size[0]/2%>px; 
-    height: auto; 
-    overflow: hidden;
-  }
-</style>
-<div id="as-field-<%= attachment.id %>">
+<div class="as-field as-field-<%= action_name %>">
   <% if attachment.image? %>
     <% if attachment.variable? %>
       <%= image_tag(field.variant(attachment, resize_to_limit: size)) %>
@@ -13,13 +6,6 @@
       <%= image_tag(field.url(attachment)) %>
     <% end %>
   <% elsif attachment.video? %>
-    <style type="text/css" nonce="<%= content_security_policy_nonce %>">
-      #as-field-video-<%= attachment.id %> {
-        object-fit: contain; 
-        width: 100%; 
-        height: 100%;
-      }
-    </style>
     <% if attachment.previewable? %>
       <%= video_tag(field.url(attachment),
                     poster: field.preview(attachment, resize_to_limit: size),
@@ -27,7 +13,7 @@
                     autobuffer: true,
                     id: "as-field-video-#{attachment.id}") %>
     <% else %>
-      <%= video_tag(field.url(attachment), controls: true, autobuffer: true, id: "as-field-video-#{attachment.id}") %>
+      <%= video_tag(field.url(attachment), controls: true, autobuffer: true, class: "as-field-video") %>
     <% end %>
   <% elsif attachment.audio? %>
     <%= audio_tag(field.url(attachment), autoplay: false, controls: true) %>

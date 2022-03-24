@@ -5,6 +5,7 @@ module Administrate
   module Field
     class ActiveStorage < Administrate::Field::Base
       class Engine < ::Rails::Engine
+        Administrate::Engine.add_stylesheet "administrate-field-active_storage/application"
       end
 
       def index_display_preview?
