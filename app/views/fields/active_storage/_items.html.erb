@@ -19,6 +19,7 @@ This partial renders one or more attachments
 
 <%
   removable = local_assigns.fetch(:removable, false)
+  variant = local_assigns.fetch(:variant, field.show_preview_variant)
   size = local_assigns.fetch(:size, field.show_preview_size)
 %>
 
@@ -29,6 +30,7 @@ This partial renders one or more attachments
                    field: field,
                    attachment: attachment,
                    removable: removable,
+                   variant: variant,
                    size: size
                } %>
   </div>

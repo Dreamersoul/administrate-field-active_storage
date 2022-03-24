@@ -190,6 +190,12 @@ for documentation.
 
 Default to `[150, 150]` and `[800, 800]`, respectively.
 
+### index_preview_variant and show_preview_variant
+
+Use a named variant for image preview for the `index` and `show` actions, respectively.
+Named image variants were [added in Rails 7](https://guides.rubyonrails.org/v7.0/active_storage_overview.html#has-one-attached).
+When set, this takes precedence over `index_preview_size` and `show_preview_size`.
+
 ### index_display_count
 
 Displays the number of attachments in the `index` action.
