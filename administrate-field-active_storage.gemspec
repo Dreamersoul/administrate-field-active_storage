@@ -2,7 +2,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = "administrate-field-active_storage"
-  gem.version = "0.3.8"
+  gem.version = "0.4.0"
   gem.authors = ["Hamad AlGhanim"]
   gem.email = ["hamadyalghanim@gmail.com"]
   gem.homepage = "https://github.com/Dreamersoul/administrate-field-active_storage"
@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
 
   gem.add_dependency "administrate", ">= 0.2.2"
-  gem.add_dependency "rails", ">= 6.0"
+  gem.add_dependency "rails", ">= 7.0"
 
   gem.add_development_dependency 'sqlite3', '~> 1.4'
   gem.add_development_dependency 'i18n-tasks', '~> 0.9.34'
