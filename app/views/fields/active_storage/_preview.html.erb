@@ -15,7 +15,7 @@
                     poster: field.preview(attachment, resize_to_limit: size),
                     controls: true,
                     autobuffer: true,
-                    id: "as-field-video-#{attachment.id}") %>
+                    class: "as-field-video") %>
     <% else %>
       <%= video_tag(field.url(attachment), controls: true, autobuffer: true, class: "as-field-video") %>
     <% end %>
