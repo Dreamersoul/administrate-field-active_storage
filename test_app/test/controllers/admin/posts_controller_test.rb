@@ -17,18 +17,34 @@ module Admin
       assert_response :ok
     end
 
-    test "create" do
+    test "create with valid parameters increases Post count by 1" do
       file = fixture_file_upload("cover_image.jpg")
 
       assert_difference "Post.count", 1 do
         post admin_posts_path, params: {
           post: {
+            title: "New post title",
             cover_image: file
           }
         }
       end
 
       assert_response :redirect
+    end
+
+    test "create with invalid parameters does not increase Post count" do
+      file = fixture_file_upload("cover_image.jpg")
+
+      assert_difference "Post.count", 0 do
+        post admin_posts_path, params: {
+          post: {
+            title: "",
+            cover_image: file
+          }
+        }
+      end
+
+      assert_response :unprocessable_entity
     end
   end
 end
