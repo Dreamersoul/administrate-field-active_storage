@@ -23,15 +23,17 @@ controlled via a boolean local variable.
   [x, y]
   Maximum size of the ActiveStorage preview.
 %>
-<% if field.show_display_preview? %>
+<% if field.show_display_preview? && attachment.persisted? %>
   <div>
     <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
   </div>
 <% end %>
 
-<div>
-  <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename %>
-</div>
+<% if attachment.persisted? %>
+  <div>
+    <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename %>
+  </div>
+<% end %>
 
 <% if field.destroy_url.present? %>
   <% destroy_url = field.destroy_url.call(namespace, field.data.record, attachment) %>
