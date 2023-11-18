@@ -8,9 +8,6 @@ This partial renders one or more attachments
 - `field`:
   An instance of [Administrate::Field::Image].
   A wrapper around the image url pulled from the database.
-- `removable`:
-  A boolean used to control the display of a `Remove` link which
-  is used to destroy a single attachment.  Defaults to `false`
 - `size`:
   [x, y]
   Maximum size of the ActiveStorage preview.
@@ -18,7 +15,6 @@ This partial renders one or more attachments
 %>
 
 <%
-  removable = local_assigns.fetch(:removable, false)
   variant = local_assigns.fetch(:variant, field.show_preview_variant)
   size = local_assigns.fetch(:size, field.show_preview_size)
 %>
@@ -29,7 +25,6 @@ This partial renders one or more attachments
                locals: {
                    field: field,
                    attachment: attachment,
-                   removable: removable,
                    variant: variant,
                    size: size
                } %>
