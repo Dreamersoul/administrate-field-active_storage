@@ -15,3 +15,4 @@
 - David Ma [@taikon](https://github.com/taikon)
 - Dmitry Davydov [@haukot](https://github.com/haukot)
 - Jeanine Soterwood [@littleforest](https://github.com/littleforest)
+- Shouichi Kamiya [@shouichi](https://github.com/shouichi)

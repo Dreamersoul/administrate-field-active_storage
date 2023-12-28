@@ -201,6 +201,10 @@ It might be necessary to add to app/assets/config/manifest.js:
 ```
 When set, this takes precedence over `index_preview_size` and `show_preview_size`.
 
+Setting this to `false` displays original images instead of variants.
+
+Defaults to `nil`.
+
 ### index_display_count
 
 Displays the number of attachments in the `index` action.
