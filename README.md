@@ -60,7 +60,9 @@ class ModelDashboard < Administrate::BaseDashboard
 ```
 I know it is not ideal, if you have a workaround please submit a PR.
 
-Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`.  Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values.
+Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`.  Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values. Please note that this configuation was [deprecated with Rails 7.1](https://github.com/rails/rails/blob/v7.0.2.3/activestorage/lib/active_storage/attached/model.rb#L150)
+>config.active_storage.replace_on_assign_to_many is deprecated and will be removed in Rails 7.1. Make sure that your code works well with config.active_storage.replace_on_assign_to_many set to true before upgrading. To append new attachables to the Active Storage association, prefer using attach. Using association setter would result in purging the existing attached attachments and replacing them with new ones.
+
 
 ### Prevent N+1 queries
 In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
