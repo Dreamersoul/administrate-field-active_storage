@@ -17,6 +17,7 @@ This partial renders one or more attachments
 <%
   variant = local_assigns.fetch(:variant, field.show_preview_variant)
   size = local_assigns.fetch(:size, field.show_preview_size)
+  preview_only = local_assigns.fetch(:preview_only, false)
 %>
 
 <% field.attachments.each do |attachment| %>
@@ -26,7 +27,8 @@ This partial renders one or more attachments
                    field: field,
                    attachment: attachment,
                    variant: variant,
-                   size: size
+                   size: size,
+                   preview_only: preview_only
                } %>
   </div>
 <% end %>

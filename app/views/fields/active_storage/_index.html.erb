@@ -22,7 +22,8 @@ By default, the attribute is rendered as an image tag.
                  locals: {
                      field: field,
                      variant: field.index_preview_variant,
-                     size: field.index_preview_size
+                     size: field.index_preview_size,
+                     preview_only: field.index_preview_only?
                  } %>
     <% else %>
       <%= render partial: 'fields/active_storage/item',
@@ -30,7 +31,8 @@ By default, the attribute is rendered as an image tag.
                      field: field,
                      attachment: field.data,
                      variant: field.index_preview_variant,
-                     size: field.index_preview_size
+                     size: field.index_preview_size,
+                     preview_only: field.index_preview_only?
                  } %>
     <% end %>
   <% end %>

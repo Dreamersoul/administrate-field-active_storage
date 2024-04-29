@@ -184,6 +184,10 @@ in the `index` action.
 
 Defaults to `true`.
 
+### index_preview_only
+
+If true, will show only the preview in the `index` action, and not the filename or destroy link (if set).
+
 ### index_preview_size and show_preview_size
 
 Indicate the size of the image preview for the `index` and `show` actions, respectively.
