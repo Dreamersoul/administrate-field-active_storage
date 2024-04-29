@@ -20,6 +20,10 @@ module Administrate
         options.fetch(:index_preview_variant, nil)
       end
 
+      def index_preview_only?
+        options.fetch(:index_preview_only, false)
+      end
+
       def index_display_count?
         options.fetch(:index_display_count) { attached? && attachments.count != 1 }
       end

@@ -19,13 +19,17 @@ controlled via a boolean local variable.
 - `size`:
   [x, y]
   Maximum size of the ActiveStorage preview.
+- `preview_only`:
+  If true, show only the previous and not the name or destroy link
 %>
+<% preview_only = local_assigns.fetch(:preview_only, false) %>
 <% if field.show_display_preview? && attachment.persisted? %>
   <div>
     <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
   </div>
 <% end %>
 
+<% unless preview_only %>
 <% if attachment.persisted? %>
   <div>
     <%= link_to attachment.filename, field.blob_url(attachment), title: attachment.filename %>
@@ -39,4 +43,5 @@ controlled via a boolean local variable.
                 destroy_url, method: :delete, class: 'remove-attachment-link', data: { confirm: t("administrate.actions.confirm") } %>
   </div>
   <hr>
+<% end %>
 <% end %>
