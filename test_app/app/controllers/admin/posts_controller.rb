@@ -42,5 +42,11 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def destroy_other_image
+      other_image = requested_resource.other_images.find(params[:attachment_id])
+      other_image.purge
+      redirect_back(fallback_location: requested_resource)
+    end
   end
 end
