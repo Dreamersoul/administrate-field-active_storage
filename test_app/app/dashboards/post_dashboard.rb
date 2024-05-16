@@ -10,6 +10,11 @@ class PostDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     cover_image: Field::ActiveStorage,
+    other_images: Field::ActiveStorage.with_options(
+      destroy_url: proc do |namespace, resource, attachment|
+        [:other_image_admin_post, { id: resource.id, attachment_id: attachment.id }]
+      end
+    ),
     title: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -24,6 +29,7 @@ class PostDashboard < Administrate::BaseDashboard
   id
   title
   cover_image
+  other_images
   created_at
   ].freeze
 
@@ -33,6 +39,7 @@ class PostDashboard < Administrate::BaseDashboard
   id
   title
   cover_image
+  other_images
   created_at
   updated_at
   ].freeze
@@ -43,6 +50,7 @@ class PostDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
   title
   cover_image
+  other_images
   ].freeze
 
   # COLLECTION_FILTERS
@@ -63,4 +71,8 @@ class PostDashboard < Administrate::BaseDashboard
   # def display_resource(post)
   #   "Post ##{post.id}"
   # end
+
+  def permitted_attributes(action = nil)
+    super + [:other_images => []]
+  end
 end
