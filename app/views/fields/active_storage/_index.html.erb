@@ -16,27 +16,14 @@ By default, the attribute is rendered as an image tag.
 %>
 
 <% if field.attached? %>
-  <% if field.index_display_preview? %>
-    <% if field.many? %>
-      <%= render partial: 'fields/active_storage/items',
-                 locals: {
-                     field: field,
-                     variant: field.index_preview_variant,
-                     size: field.index_preview_size,
-                     preview_only: field.index_preview_only?
-                 } %>
-    <% else %>
-      <%= render partial: 'fields/active_storage/item',
-                 locals: {
-                     field: field,
-                     attachment: field.data,
-                     variant: field.index_preview_variant,
-                     size: field.index_preview_size,
-                     preview_only: field.index_preview_only?
-                 } %>
-    <% end %>
-  <% end %>
-
+  <%= render partial: "fields/active_storage/items",
+              locals: {
+                  field: field,
+                  variant: field.index_preview_variant,
+                  size: field.index_preview_size,
+                  display_preview: field.index_display_preview?,
+                  preview_only: field.index_preview_only?
+              } %>
   <% if field.index_display_count? %>
     <div class="attachments-count">
       <%= pluralize(field.attachments.count,

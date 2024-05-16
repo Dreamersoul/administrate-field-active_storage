@@ -22,8 +22,9 @@ controlled via a boolean local variable.
 - `preview_only`:
   If true, show only the previous and not the name or destroy link
 %>
-<% preview_only = local_assigns.fetch(:preview_only, false) %>
-<% if field.show_display_preview? && attachment.persisted? %>
+<% preview_only = local_assigns.fetch(:preview_only, false)
+   display_preview = local_assigns.fetch(:display_preview, field.show_display_preview?) %>
+<% if display_preview && attachment.persisted? %>
   <div>
     <%= render partial: 'fields/active_storage/preview', locals: local_assigns %>
   </div>
