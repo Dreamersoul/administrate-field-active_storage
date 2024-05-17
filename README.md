@@ -54,7 +54,7 @@ class ModelDashboard < Administrate::BaseDashboard
   }
 
   # permitted for has_many_attached
-  def permitted_attributes
+  def permitted_attributes(_action = nil)
     super + [:attachments => []]
   end
 ```
