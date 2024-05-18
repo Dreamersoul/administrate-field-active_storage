@@ -63,6 +63,43 @@ I know it is not ideal, if you have a workaround please submit a PR.
 Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`.  Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values. Please note that this configuation was [deprecated with Rails 7.1](https://github.com/rails/rails/blob/v7.0.2.3/activestorage/lib/active_storage/attached/model.rb#L150)
 >config.active_storage.replace_on_assign_to_many is deprecated and will be removed in Rails 7.1. Make sure that your code works well with config.active_storage.replace_on_assign_to_many set to true before upgrading. To append new attachables to the Active Storage association, prefer using attach. Using association setter would result in purging the existing attached attachments and replacing them with new ones.
 
+This means that in Rails 7 for `has_many_attached`, whenever a form is submitted, all associations to existing attachments are being removed without the ActiveStorage objects being deleted. This is undesired behaviour because you have to re attach every time you update an object and it will result in orphaned ActiveStorage objects. To fix this and to add the ability to add more attachments to an existing set of attachments, follow this [workaround](https://stackoverflow.com/a/74207496). In short, you can create a concern:
+
+```ruby
+# app/models/concerns/append_to_has_many_attached.rb
+module AppendToHasManyAttached
+  def self.[](fields)
+    Module.new do
+      extend ActiveSupport::Concern
+
+      fields = Array(fields).compact_blank # will always return an array ( worst case is an empty array)
+
+      fields.each do |field|
+        field = field.to_s # We need the string version
+        define_method :"#{field}=" do |attachables|
+          attachables = Array(attachables).compact_blank
+
+          if attachables.any?
+            attachment_changes[field] =
+              ActiveStorage::Attached::Changes::CreateMany.new(field, self, public_send(field).public_send(:blobs) + attachables)
+          end
+        end
+      end
+    end
+  end
+end
+```
+
+And then load this concern in your model:
+```ruby
+class Model < ApplicationModel
+  include AppendToHasManyAttached['files'] # you can include it before or after, order does not matter, explanation below
+
+  has_many_attached :files
+end
+```
+
+Please note, it does not matter if you prepend or include the module, see [original post](https://stackoverflow.com/a/74207496) for details.
 
 ### Prevent N+1 queries
 In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
