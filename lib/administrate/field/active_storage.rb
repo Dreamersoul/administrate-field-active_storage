@@ -40,6 +40,13 @@ module Administrate
         options.fetch(:show_preview_variant, nil)
       end
 
+      def file_field_options
+        {
+          direct_upload: field.direct?,
+          multiple: field.many?,
+        }.merge options.fetch(:file_field_options, {})
+      end
+
       def many?
         data.is_a? ::ActiveStorage::Attached::Many
       end
