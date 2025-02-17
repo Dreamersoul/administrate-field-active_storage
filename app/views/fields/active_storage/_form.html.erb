@@ -29,6 +29,6 @@ By default, the input is a text field for the image's URL.
           I18n.t("administrate.fields.active_storage.add", default: 'Add') :
           I18n.t("administrate.fields.active_storage.replace", default: 'Replace')
     %>
-    <%= f.file_field field.attribute, multiple: field.many?, direct_upload: field.direct? %>
+    <%= f.file_field field.attribute, field.file_field_options %>
   </div>
 </div>

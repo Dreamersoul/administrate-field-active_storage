@@ -254,11 +254,17 @@ Displays the number of attachments in the `index` action.
 
 Defaults to `true` if number of attachments is not 1.
 
-### direct_upload
+### file_field_options
+
+Configure any options to give to `file_field`.
+
+`multiple` is set by default based on `::ActiveStorage::Attached::Many`, but can be overridden.
+
+#### direct
 
 Enables direct upload from the browser to the cloud.
 
-Defaults to `false`.
+Defaults to `false`. Configure with `file_field_options: { direct: true }`.
 
 Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads). You can use `rails generate administrate:assets:javascripts` to be able to customize Administrate JavaScripts in your application.
 
