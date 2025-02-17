@@ -42,8 +42,8 @@ module Administrate
 
       def file_field_options
         {
-          direct_upload: field.direct?,
-          multiple: field.many?,
+          direct_upload: direct?,
+          multiple: many?,
         }.merge options.fetch(:file_field_options, {})
       end
 

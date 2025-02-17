@@ -44,7 +44,7 @@ module Admin
         }
       end
 
-      assert_response :unprocessable_entity
+      assert_response 422
     end
   end
 end
