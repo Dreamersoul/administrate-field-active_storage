@@ -1,13 +1,16 @@
 # Administrate::Field::ActiveStorage
+
 ![rails](https://img.shields.io/badge/rails-%3E%3D5.2.0-red.svg)
 ![CI](https://github.com/Dreamersoul/administrate-field-active_storage/workflows/CI/badge.svg)
 
 ## Things To Know:
+
 - To preview pdf files you need to install `mupdf` or `Poppler`.
 - To preview video files you need to install `ffmpeg`.
 - To preview Office files as pictures you need to install [activestorage-office-previewer](https://github.com/basecamp/activestorage-office-previewer) by basecamp
 
 ## How To Use:
+
 Add `administrate-field-active_storage` and `image_processing` to your Gemfile (Rails 6+):
 
 ```ruby
@@ -16,6 +19,7 @@ gem "image_processing"
 ```
 
 for Rails 5.x use the following
+
 ```ruby
 gem "administrate-field-active_storage", "0.1.8"
 ```
@@ -27,7 +31,9 @@ $ bundle install
 ```
 
 ### `has_one_attached`:
+
 Assuming your model name is `Model` and field name is `attachment`
+
 ```ruby
 class ModelDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
@@ -35,10 +41,12 @@ class ModelDashboard < Administrate::BaseDashboard
   }
 # ...
 ```
+
 Then add `:attachment` to `FORM_ATTRIBUTES` and `SHOW_PAGE_ATTRIBUTES`.
 Adding `:attachment` `COLLECTION_ATTRIBUTES` will work but will probably look too big.
 
 ### `has_many_attached`:
+
 Assuming your model name is `Model` and field name is `attachments` the process is identical the only issue is that the form field isn't being permitted, in order to permit it we apply the following method to the dashboard:
 
 ```ruby
@@ -58,12 +66,14 @@ class ModelDashboard < Administrate::BaseDashboard
     super + [:attachments => []]
   end
 ```
+
 I know it is not ideal, if you have a workaround please submit a PR.
 
-Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`.  Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values. Please note that this configuation was [deprecated with Rails 7.1](https://github.com/rails/rails/blob/v7.0.2.3/activestorage/lib/active_storage/attached/model.rb#L150)
->config.active_storage.replace_on_assign_to_many is deprecated and will be removed in Rails 7.1. Make sure that your code works well with config.active_storage.replace_on_assign_to_many set to true before upgrading. To append new attachables to the Active Storage association, prefer using attach. Using association setter would result in purging the existing attached attachments and replacing them with new ones.
+Note: Rails 6 introduced a new config to determine the behavior on updates to `has_many_attached`. Setting `Rails.application.config.active_storage.replace_on_assign_to_many` to `true` will overwrite any existing values (purging the old ones), and setting it to `false` will append the new values. Please note that this configuation was [deprecated with Rails 7.1](https://github.com/rails/rails/blob/v7.0.2.3/activestorage/lib/active_storage/attached/model.rb#L150)
 
-This means that in Rails 7 for `has_many_attached`, whenever a form is submitted, all associations to existing attachments are being removed without the ActiveStorage objects being deleted. This is undesired behaviour because you have to re attach every time you update an object and it will result in orphaned ActiveStorage objects. To fix this and to add the ability to add more attachments to an existing set of attachments, follow this [workaround](https://stackoverflow.com/a/74207496). In short, you can create a concern:
+> config.active_storage.replace_on_assign_to_many is deprecated and will be removed in Rails 7.1. Make sure that your code works well with config.active_storage.replace_on_assign_to_many set to true before upgrading. To append new attachables to the Active Storage association, prefer using attach. Using association setter would result in purging the existing attached attachments and replacing them with new ones.
+
+This means that in Rails 7 for `has_many_attached`, whenever a form is submitted, all associations to existing attachments are being removed without the ActiveStorage objects being deleted. This is undesired behavior because you have to re attach every time you update an object and it will result in orphaned ActiveStorage objects. To fix this and to add the ability to add more attachments to an existing set of attachments, follow this [workaround](https://stackoverflow.com/a/74207496). In short, you can create a concern:
 
 ```ruby
 # app/models/concerns/append_to_has_many_attached.rb
@@ -91,6 +101,7 @@ end
 ```
 
 And then load this concern in your model:
+
 ```ruby
 class Model < ApplicationModel
   include AppendToHasManyAttached['files'] # you can include it before or after, order does not matter, explanation below
@@ -102,7 +113,9 @@ end
 Please note, it does not matter if you prepend or include the module, see [original post](https://stackoverflow.com/a/74207496) for details.
 
 ### Prevent N+1 queries
+
 In order to prevent N+1 queries from active storage you have to modify your admin model controller, below an example for a model called `User` and with attached avatars
+
 ```ruby
 module Admin
   class UsersController < ApplicationController
@@ -144,6 +157,7 @@ module Admin
   end
 end
 ```
+
 For `has_one_attached` cases, you will use:
 
 ```rb
@@ -171,6 +185,7 @@ module Admin
   end
 end
 ```
+
 This route can be customized with `destroy_url`. The option expects a `proc` receiving 3 arguments:
 the Administrate `namespace`, the `resource`, and the `attachment`. The proc can return anything
 accepted by `link_to`:
@@ -239,9 +254,11 @@ Use a named variant for image preview for the `index` and `show` actions, respec
 Named image variants were [added in Rails 7](https://guides.rubyonrails.org/v7.0/active_storage_overview.html#has-one-attached).
 
 It might be necessary to add to app/assets/config/manifest.js:
+
 ```rb
  //= link 'administrate-field-active_storage/application.css'
 ```
+
 When set, this takes precedence over `index_preview_size` and `show_preview_size`.
 
 Setting this to `false` displays original images instead of variants.
@@ -256,15 +273,16 @@ Defaults to `true` if number of attachments is not 1.
 
 ### file_field_options
 
-Configure any options to give to `file_field`.
+The `file_field_options` is a configuration option that allows you to customize the behavior and appearance of the file input field used for uploading attachments. You can pass various options to `file_field` to control its functionality.
 
-`multiple` is set by default based on `::ActiveStorage::Attached::Many`, but can be overridden.
+The `multiple` HTML attribute for file input fields is set by default based on `::ActiveStorage::Attached::Many`, but can be overridden through this option.
+The `direct` attribute to enable direct uploads is set to read from the field options, but can be overridden through this option.
 
 #### direct
 
 Enables direct upload from the browser to the cloud.
 
-Defaults to `false`. Configure with `file_field_options: { direct: true }`.
+Defaults to `false`.
 
 Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrails.org/active_storage_overview.html#direct-uploads). You can use `rails generate administrate:assets:javascripts` to be able to customize Administrate JavaScripts in your application.
 
@@ -273,6 +291,7 @@ Don't forget to include [ActiveStorage JavaScript](https://edgeguides.rubyonrail
 You can see translation example [here](https://github.com/Dreamersoul/administrate-field-active_storage/blob/master/config/locales/administrate-field-active_storage.en.yml).
 
 ## Things To Do:
+
 - [x] upload single file
 - [x] adding image support through url_for to support 3rd party cloud storage
 - [x] use html 5 video element for video files
@@ -285,10 +304,12 @@ You can see translation example [here](https://github.com/Dreamersoul/administra
 - [x] preview office files as pictures
 
 ## Contribution Guide:
-1. contributers are welcome (code, suggestions, and bugs).
+
+1. contributors are welcome (code, suggestions, and bugs).
 2. please test your code: `cd test_app && bundle && bundle exec rails test`.
 3. please document your code.
 4. add your name to the `contribute.md`.
 
 ---
+
 Based on the [Administrate::Field::Image](https://github.com/thoughtbot/administrate-field-image) template, and inspired by [Administrate::Field::Paperclip](https://github.com/picandocodigo/administrate-field-paperclip).
